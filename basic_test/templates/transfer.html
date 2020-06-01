@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+   <script type="text/javascript" src="https://bundle.run/charming"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fredericka+the+Great&amp;display=swap">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.1.1/gsap.min.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ola"></script>
+  <title></title>
+</head>
+<div class='ripple-background'>
+  <div class='circle xxlarge shade1'></div>
+  <div class='circle xlarge shade2'></div>
+  <div class='circle large shade3'></div>
+  <div class='circle mediun shade4'></div>
+  <div class='circle small shade5'></div>
+</div>
+<form id="form_id" action="/transaction" method="post">
+<div class="boxes">
+
+<div class="text-input">
+  <input type="text" id="input2" placeholder="         {{session['id']}}" name="sender" value="{{session['id']}}">
+  <label for="input1">                     Sender</label>
+</div>
+
+<div class="text-input">
+  <input type="text" id="input2" placeholder="       Account number of Receiver" name="receiver">
+  <label for="input2">To</label>
+</div>
+
+
+<div class="text-input">
+  <input type="text" id="input3" placeholder="       Amount to be transferred" name="amount">
+  <label for="input3">Amount</label>
+</div>
+
+
+<div class="text-input">
+  <input type="text" id="input4" placeholder="       Private key" name="pin">
+  <label for="input4">Pin</label>
+</div>
+</div>
+
+
+
+
+<div class="rocket-button">
+    <button type="button" onclick="submitForm()"><div class="default" style="color:white;">Transfer</div></button>
+    <!-- <div class="success">
+        <svg>
+            <use xlink:href="#check">
+        </svg>
+        <div>Done</div>
+    </div>
+    <div class="animation">
+        <div class="rocket">
+            <svg>
+                <use xlink:href="#rocket">
+            </svg>
+        </div>
+        <div class="smoke">
+            <i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+    </div>-->
+</div>
+</form>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 11" id="check">
+        <polyline stroke="currentColor" points="1 5.5 5 9.5 12 1.5"></polyline>
+    </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" id="rocket">
+        <path d="M12,0 C18.6666667,8.70175439 19.7777778,19.0350877 15.3333333,31 L8.66666667,31 C4.22222222,19.0350877 5.33333333,8.70175439 12,0 Z" fill="var(--rocket)"></path>
+        <path d="M12,0 C5.33333333,8.70175439 4.22222222,19.0350877 8.66666667,31 C6.72222222,17.9473684 7.83333333,7.61403509 12,0 Z" fill="var(--rocket-shadow-left)"></path>
+        <path d="M12,0 C18.6666667,8.70175439 19.7777778,19.0350877 15.3333333,31 C17.2777778,17.9473684 16.1666667,7.61403509 12,0 Z" fill="var(--rocket-shadow-right)"></path>
+        <path d="M22.2399372,27.25 C21.2403105,25.558628 19.4303122,23.808628 16.21,22 L15,31 L17.6512944,31 C18.2564684,31 18.8216022,31.042427 19.1572924,31.5292747 L21.7379379,35.271956 C22.0515593,35.7267976 22.5795404,36 23.1449294,36 C23.5649145,36 23.9142153,35.7073938 23.9866527,35.3215275 L24,35.146217 L23.9987214,35.1196135 C23.7534506,31.4421183 23.1671892,28.8189138 22.2399372,27.25 Z" fill="var(--rocket-wing-right)"></path>
+        <path d="M1.76006278,27.25 C2.75968951,25.558628 4.56968777,23.808628 7.79,22 L9,31 L6.34870559,31 C5.74353157,31 5.17839777,31.042427 4.84270762,31.5292747 L2.2620621,35.271956 C1.94844071,35.7267976 1.42045963,36 0.855070627,36 C0.435085457,36 0.0857846604,35.7073938 0.0133472633,35.3215275 L0,35.146217 L0.00127855763,35.1196135 C0.24654935,31.4421183 0.832810758,28.8189138 1.76006278,27.25 Z" fill="var(--rocket-wing-left)"></path>
+        <circle fill="var(--rocket-window-shadow)" cx="12" cy="12" r="3"></circle>
+        <circle fill="var(--rocket-window)" cx="12" cy="12" r="2.5"></circle>
+        <path d="M15.6021597,5.99977504 L8.39784027,5.99977504 C8.54788101,5.6643422 8.70496315,5.3309773 8.86908669,4.99968036 L15.1309133,4.99968036 C15.2950369,5.3309773 15.452119,5.6643422 15.6021597,5.99977504 Z" fill-opacity="0.3" fill="var(--rocket-line)"></path>
+    </symbol>
+</svg>
+
+
+
+
+<div class="text-anim">
+  <div id="container-anim">
+      <div>
+        <div>transfer</div>
+      </div>
+    <div id="flip">
+      <div>
+        <div>SOTERIA</div>
+      </div>
+      <div>
+        <div>BY</div>
+      </div>
+      <div>
+        <div>MONEY</div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<div id="app">
+  <line-button text="Account Summary"  width="280" height="80" stroke-width="4" />
+</div>
+<div class="logout">
+  <button class="animated-btn">LogOut</button>
+</div>
+
+
+<div class="push_button red" href="#">Home</div> 
+</body>
+
+<script type="text/javascript">
+
+function submitForm()
+{
+	document.getElementById('form_id').submit();
+	
+}
+
+
+</script>
+
+<style type="text/css">
+  body{
+  background: linear-gradient(45deg, #02001F, #1F1B4E);
+}
+
+.boxes{
+  margin-top: 100px;
+ margin-left: 400px;
+}
+.circle{
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: ripple 15s infinite;
+  box-shadow: 0px 0px 1px 0px #508fb9;
+}
+
+.small{
+  width: 200px;
+  height: 200px;
+  left: -100px;
+  bottom: -100px;
+}
+
+.medium{
+  width: 400px;
+  height: 400px;
+  left: -200px;
+  bottom: -200px;
+}
+
+.large{
+  width: 600px;
+  height: 600px;
+  left: -300px;
+  bottom: -300px;
+}
+
+.xlarge{
+  width: 800px;
+  height: 800px;
+  left: -400px;
+  bottom: -400px;
+}
+
+.xxlarge{
+  width: 1000px;
+  height: 1000px;
+  left: -500px;
+  bottom: -500px;
+}
+
+.shade1{
+  opacity: 0.2;
+}
+.shade2{
+  opacity: 0.5;
+}
+
+.shade3{
+  opacity: 0.7;
+}
+
+.shade4{
+  opacity: 0.8;
+}
+
+.shade5{
+  opacity: 0.9;
+}
+
+@keyframes ripple{
+  0%{
+    transform: scale(0.8);
+  }
+  
+  50%{
+    transform: scale(1.2);
+  }
+  
+  100%{
+    transform: scale(0.8);
+  }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+body {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  height: 100vh;
+  font-family: Montserrat;
+ 
+}
+
+.text-input {
+  position: relative;
+  margin-top: 50px;
+}
+.text-input input[type="text"] {
+  display: inline-block;
+  width: 500px;
+  height: 40px;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  padding: 10px 10px 10px 100px;
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+.text-input input[type="text"] + label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  border-radius: 3px 0 0 3px;
+  padding: 0 20px;
+  background: #E03616;
+  -webkit-transform: translateZ(0) translateX(0);
+          transform: translateZ(0) translateX(0);
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  -webkit-transition-delay: 0.2s;
+          transition-delay: 0.2s;
+}
+.text-input input[type="text"]:focus + label {
+  -webkit-transform: translateY(-120%) translateX(0%);
+          transform: translateY(-120%) translateX(0%);
+  border-radius: 3px;
+  -webkit-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+.text-input input[type="text"]:focus {
+  padding: 10px;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  -webkit-transition-delay: 0.2s;
+          transition-delay: 0.2s;
+}
+
+
+
+.rocket-button {
+  margin-top: 50px;
+  margin-left: 400px;
+  --background: #262730;
+  --text: #fff;
+  --check: #5c86ff;
+  --blue: #5c86ff;
+  --blue-transparent: rgba(92, 134, 255, 0);
+  --dot: #fe5151;
+  --dot-shadow: rgba(254, 81, 81, 0.3);
+  --smoke: rgba(247, 248, 255, 0.9);
+  --rocket: #eef0fd;
+  --rocket-shadow-left: #fff;
+  --rocket-shadow-right: #d3d4ec;
+  --rocket-wing-right: #c2c3d9;
+  --rocket-wing-left: #d3d4ec;
+  --rocket-window: #275efe;
+  --rocket-window-shadow: #c2c3d9;
+  --rocket-line: #9ea0be;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19px;
+  padding: 14px 28px;
+  display: table;
+  position: relative;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  text-decoration: none;
+  color: var(--text);
+}
+.rocket-button:before {
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: -webkit-transform .2s ease;
+  transition: -webkit-transform .2s ease;
+  transition: transform .2s ease;
+  transition: transform .2s ease, -webkit-transform .2s ease;
+  -webkit-transform: scale(var(--s, 1)) translateZ(0);
+          transform: scale(var(--s, 1)) translateZ(0);
+  position: absolute;
+  background: var(--background);
+}
+.rocket-button .default,
+.rocket-button .success,
+.rocket-button .animation {
+  z-index: 1;
+}
+.rocket-button .default span,
+.rocket-button .success span {
+  display: block;
+  -webkit-transition: opacity .2s ease, -webkit-transform .2s ease;
+  transition: opacity .2s ease, -webkit-transform .2s ease;
+  transition: transform .2s ease, opacity .2s ease;
+  transition: transform .2s ease, opacity .2s ease, -webkit-transform .2s ease;
+  -webkit-transform: translateX(var(--x, 0));
+          transform: translateX(var(--x, 0));
+  opacity: var(--o, 1);
+  -webkit-filter: blur(var(--b, 0px));
+          filter: blur(var(--b, 0px));
+}
+.rocket-button .default {
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+}
+.rocket-button .default:before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 7px 8px 0 0;
+  box-shadow: 0 0 0 1px var(--dot-shadow);
+  -webkit-animation: pulse 1s ease infinite;
+          animation: pulse 1s ease infinite;
+  vertical-align: top;
+  display: inline-block;
+  -webkit-transition: opacity .3s linear;
+  transition: opacity .3s linear;
+  opacity: var(--o, 1);
+  background: var(--dot);
+}
+.rocket-button .success {
+  opacity: var(--o, 0);
+  position: absolute;
+  display: -webkit-box;
+  display: flex;
+  top: 14px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.rocket-button .success svg {
+  width: 13px;
+  height: 11px;
+  stroke-width: 2;
+  stroke-dasharray: 20px;
+  stroke-dashoffset: var(--o, 20px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  display: block;
+  color: var(--check);
+  margin: 4px 8px 0 0;
+}
+.rocket-button .success > div {
+  display: -webkit-box;
+  display: flex;
+}
+.rocket-button .success > div span {
+  --o: 0;
+  --x: 8px;
+  --b: 2px;
+}
+.rocket-button .animation {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  pointer-events: none;
+  overflow: hidden;
+  position: absolute;
+}
+.rocket-button .animation .smoke {
+  left: 50%;
+  top: 100%;
+  position: absolute;
+}
+.rocket-button .animation .smoke i {
+  opacity: 0;
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+  border-radius: 50%;
+  position: absolute;
+  bottom: var(--b, -20px);
+  left: var(--l, -12px);
+  width: var(--s, 32px);
+  height: var(--s, 32px);
+  background: var(--smoke);
+}
+.rocket-button .animation .smoke i:nth-child(2) {
+  --s: 20px;
+  --l: -24px;
+  --b: -10px;
+  --d: 50ms;
+}
+.rocket-button .animation .smoke i:nth-child(3) {
+  --s: 22px;
+  --l: 0;
+  --b: -12px;
+  --d: 20ms;
+}
+.rocket-button .animation .smoke i:nth-child(4) {
+  --s: 12px;
+  --l: 16px;
+  --b: -6px;
+  --d: 120ms;
+}
+.rocket-button .animation .smoke i:nth-child(5) {
+  --s: 24px;
+  --l: -20px;
+  --b: -14px;
+  --d: 80ms;
+}
+.rocket-button .animation .smoke i:nth-child(6) {
+  --s: 12px;
+  --l: -28px;
+  --b: -8px;
+  --d: 60ms;
+}
+.rocket-button .animation .rocket {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  z-index: 1;
+  margin: 0 0 0 -12px;
+}
+.rocket-button .animation .rocket:before {
+  content: '';
+  margin-left: -3px;
+  left: 50%;
+  top: 32px;
+  position: absolute;
+  width: 6px;
+  border-radius: 2px;
+  height: 32px;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--blue)), to(var(--blue-transparent)));
+  background: linear-gradient(var(--blue), var(--blue-transparent));
+}
+.rocket-button .animation .rocket svg {
+  width: 24px;
+  height: 36px;
+  display: block;
+}
+.rocket-button:active {
+  --s: .95;
+}
+.rocket-button.live:before {
+  -webkit-animation: shake 1.5s ease .6s;
+          animation: shake 1.5s ease .6s;
+}
+.rocket-button.live .default:before {
+  --o: 0;
+}
+.rocket-button.live .default span {
+  --o: 0;
+  --x: 8px;
+  --b: 2px;
+  -webkit-transition: opacity 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+  transition: opacity 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+  transition: transform 0.3s ease var(--d), opacity 0.3s ease var(--d), filter 0.3s ease var(--d);
+  transition: transform 0.3s ease var(--d), opacity 0.3s ease var(--d), filter 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+}
+.rocket-button.live .success {
+  --o: 1;
+}
+.rocket-button.live .success span {
+  --o: 1;
+  --x: 0;
+  --b: 0;
+  -webkit-transition: opacity 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: opacity 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: transform 0.3s ease calc(var(--d) + 2200ms), opacity 0.3s ease calc(var(--d) + 2200ms), filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: transform 0.3s ease calc(var(--d) + 2200ms), opacity 0.3s ease calc(var(--d) + 2200ms), filter 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+}
+.rocket-button.live .success svg {
+  --o: 0;
+  -webkit-transition: stroke-dashoffset .3s ease 2.25s;
+  transition: stroke-dashoffset .3s ease 2.25s;
+}
+.rocket-button.live .animation .rocket {
+  -webkit-animation: rocket 2s ease forwards .4s;
+          animation: rocket 2s ease forwards .4s;
+}
+.rocket-button.live .animation .rocket:before {
+  -webkit-animation: rocket-light 2s ease forwards .4s;
+          animation: rocket-light 2s ease forwards .4s;
+}
+.rocket-button.live .animation .smoke i {
+  -webkit-animation: var(--n, smoke) 1.7s ease forwards calc(var(--d) + 600ms);
+          animation: var(--n, smoke) 1.7s ease forwards calc(var(--d) + 600ms);
+}
+.rocket-button.live .animation .smoke i:nth-child(3), .rocket-button.live .animation .smoke i:nth-child(6) {
+  --n: smoke-alt;
+}
+
+@-webkit-keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 2px var(--dot-shadow);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 2px var(--dot-shadow);
+  }
+}
+@-webkit-keyframes shake {
+  8%,
+    24%,
+    40%,
+    56%,
+    72%,
+    88% {
+    -webkit-transform: translateX(-1px);
+            transform: translateX(-1px);
+  }
+  16%,
+    32%,
+    48%,
+    64%,
+    80%,
+    96% {
+    -webkit-transform: translateX(1px);
+            transform: translateX(1px);
+  }
+}
+@keyframes shake {
+  8%,
+    24%,
+    40%,
+    56%,
+    72%,
+    88% {
+    -webkit-transform: translateX(-1px);
+            transform: translateX(-1px);
+  }
+  16%,
+    32%,
+    48%,
+    64%,
+    80%,
+    96% {
+    -webkit-transform: translateX(1px);
+            transform: translateX(1px);
+  }
+}
+@-webkit-keyframes smoke {
+  20%,
+    80% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  55% {
+    -webkit-transform: scale(0.92);
+            transform: scale(0.92);
+  }
+}
+@keyframes smoke {
+  20%,
+    80% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  55% {
+    -webkit-transform: scale(0.92);
+            transform: scale(0.92);
+  }
+}
+@-webkit-keyframes smoke-alt {
+  20%,
+    80% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  60% {
+    -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+  }
+}
+@keyframes smoke-alt {
+  20%,
+    80% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  60% {
+    -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+  }
+}
+@-webkit-keyframes rocket {
+  35% {
+    -webkit-transform: translateY(-56px);
+            transform: translateY(-56px);
+  }
+  80% {
+    -webkit-transform: translateY(-48px);
+            transform: translateY(-48px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-108px) scale(0.6);
+            transform: translateY(-108px) scale(0.6);
+    opacity: 0;
+  }
+}
+@keyframes rocket {
+  35% {
+    -webkit-transform: translateY(-56px);
+            transform: translateY(-56px);
+  }
+  80% {
+    -webkit-transform: translateY(-48px);
+            transform: translateY(-48px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-108px) scale(0.6);
+            transform: translateY(-108px) scale(0.6);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes rocket-light {
+  35% {
+    -webkit-transform: scaleY(0.6);
+            transform: scaleY(0.6);
+  }
+  75% {
+    -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+}
+@keyframes rocket-light {
+  35% {
+    -webkit-transform: scaleY(0.6);
+            transform: scaleY(0.6);
+  }
+  75% {
+    -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+}
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+}
+*:before, *:after {
+  box-sizing: inherit;
+}
+
+
+
+#container-anim {
+  color: white;
+  text-transform: uppercase;
+  font-size: 36px;
+  margin-right: 1100px;
+  margin-top: -550px;
+  margin-left: 100px;
+  font-family: "Fredericka the Great", cursive;
+  width: 100%;
+  bottom: 45%;
+  display: ruby-base;
+}
+#flip {
+  height: 50px;
+  overflow: hidden;
+}
+#flip > div > div {
+  color: #fff;
+  padding: 4px 12px;
+  height: 45px;
+  margin-bottom: 45px;
+  display: inline-block;
+}
+#flip div:first-child {
+  animation: show 5s linear infinite;
+}
+#flip div div {
+  background: #8c1864;
+}
+#flip div:first-child div {
+  background: #f2911b;
+}
+#flip div:last-child div {
+  background: #bf4904;
+}
+
+@keyframes show {
+  0% {
+    margin-top: -270px;
+  }
+  5% {
+    margin-top: -180px;
+  }
+  33% {
+    margin-top: -180px;
+  }
+  38% {
+    margin-top: -90px;
+  }
+  66% {
+    margin-top: -90px;
+  }
+  71% {
+    margin-top: 0px;
+  }
+  99.99% {
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: -270px;
+  }
+}
+
+
+
+
+</style>
+ 
+ <script type="text/javascript">
+   const d = 40;
+
+document.querySelectorAll(".rocket-button").forEach((elem) => {
+    elem.querySelectorAll(".default, .success > div").forEach((text) => {
+        charming(text);
+        text.querySelectorAll("span").forEach((span, i) => {
+            span.innerHTML =
+                span.textContent == " " ? "&nbsp;" : span.textContent;
+            span.style.setProperty("--d", i * d + "ms");
+            span.style.setProperty(
+                "--ds",
+                text.querySelectorAll("span").length * d - d - i * d + "ms"
+            );
+        });
+    });
+
+    elem.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (elem.classList.contains("animated")) {
+            return;
+        }
+        elem.classList.add("animated");
+        elem.classList.toggle("live");
+        setTimeout(() => {
+            elem.classList.remove("animated");
+        }, 2400);
+    });
+});
+
+ </script>
+
+
+
+<style type="text/css">
+  
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
+#app {
+  width: 40%;
+  height: 20%;
+  display: grid;
+  place-items: center;
+  margin-left: -1000px;
+  margin-top: -100px;
+}
+
+.line-button {
+  font-family: Montserrat, sans-serif;
+  font-size: 24px;
+  background-color: transparent;
+  width: 280px;
+  height: 80px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  position: relative;
+  transition: background-color 500ms ease-out;
+}
+
+.line-button svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.line-button svg path {
+  stroke: #000000;
+}
+
+.line-button:hover {
+  background-color: #e4e4e4;
+}
+
+
+</style>
+ <script type="text/javascript">
+   
+"use strict";
+Vue.component('line-button', {
+  props: ['text', 'width', 'height', 'strokeWidth'],
+  data: function () {
+    return {
+      topLine: "M " + this.width + " " + this.strokeWidth / 2 + " L " + this.width + " " + this.strokeWidth / 2 + " Z",
+      topHover: "M " + this.width + " " + this.strokeWidth / 2 + " L 0 " + this.strokeWidth / 2 + " Z",
+      bottomLine: "M 0 " + (this.height - this.strokeWidth / 2) + " L 0 " + (this.height - this.strokeWidth / 2) + " Z",
+      bottomHover: "M 0 " + (this.height - this.strokeWidth / 2) + " L " + this.width + " " + (this.height - this.strokeWidth / 2) + " Z",
+      leftLine: "M " + this.strokeWidth / 2 + " 0 L " + this.strokeWidth / 2 + " 0 Z",
+      leftHover: "M " + this.strokeWidth / 2 + " 0 L " + this.strokeWidth / 2 + " " + this.height + " Z",
+      rightLine: "M " + (this.width - this.strokeWidth / 2) + " " + this.height + " L " + (this.width - this.strokeWidth / 2) + " " + this.height + " Z",
+      rightHover: "M " + (this.width - this.strokeWidth / 2) + " " + this.height + " L " + (this.width - this.strokeWidth / 2) + " 0 Z" };
+
+  },
+  methods: {
+    btnMouseOver: function () {
+      TweenLite.killTweensOf(this.$refs.pathLeftLine);
+      TweenLite.killTweensOf(this.$refs.pathBottomLine);
+      TweenLite.killTweensOf(this.$refs.pathRightLine);
+      TweenLite.killTweensOf(this.$refs.pathTopLine);
+      TweenLite.to(this.$refs.pathLeftLine, 0.125, { attr: { d: this.leftHover }, delay: 0, duration: 0.125, ease: Bounce.easeOut });
+      TweenLite.to(this.$refs.pathBottomLine, 0.125, { attr: { d: this.bottomHover }, delay: 0.125, duration: 0.125, ease: Bounce.easeOut });
+      TweenLite.to(this.$refs.pathRightLine, 0.125, { attr: { d: this.rightHover }, delay: 0.250, duration: 0.125, ease: Bounce.easeOut });
+      TweenLite.to(this.$refs.pathTopLine, 0.125, { attr: { d: this.topHover }, delay: 0.375, duration: 0.125, ease: Bounce.easeOut });
+    },
+    btnMouseOut: function () {
+      TweenLite.killTweensOf(this.$refs.pathLeftLine);
+      TweenLite.killTweensOf(this.$refs.pathBottomLine);
+      TweenLite.killTweensOf(this.$refs.pathRightLine);
+      TweenLite.killTweensOf(this.$refs.pathTopLine);
+      TweenLite.to(this.$refs.pathLeftLine, 0.125, { attr: { d: this.leftLine }, delay: 0.375, duration: 0.125, ease: Bounce.easeOut });
+      TweenLite.to(this.$refs.pathBottomLine, 0.125, { attr: { d: this.bottomLine }, delay: 0.250, duration: 0.125, ease: Bounce.easeOut });
+      TweenLite.to(this.$refs.pathRightLine, 0.125, { attr: { d: this.rightLine }, delay: 0.125, duration: 0.125, ease: Bounce.easeOut });
+      TweenLite.to(this.$refs.pathTopLine, 0.125, { attr: { d: this.topLine }, delay: 0, duration: 0.125, ease: Bounce.easeOut });
+    } },
+
+  template: "\n<button class=\"line-button\" v-on:mouseover=\"btnMouseOver\" v-on:mouseout=\"btnMouseOut\">\n  {{ text }}\n  <svg v-bind:stroke-width=\"strokeWidth\">\n    <path v-bind:d=\"topLine\" ref=\"pathTopLine\" />\n    <path v-bind:d=\"bottomLine\" ref=\"pathBottomLine\" />\n    <path v-bind:d=\"leftLine\" ref=\"pathLeftLine\" />\n    <path v-bind:d=\"rightLine\" ref=\"pathRightLine\" />\n  </svg>\n</button>\n" });
+
+var app = new Vue({
+  el: '#app' });
+
+ </script>
+
+
+
+ <style type="text/css">
+  @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@500;900&display=swap");
+
+:root {
+  font-family: "Rubik" , sans-serif;
+  --background-color: #252a34;
+  --hover-bg-color: #08d9d6;
+  --hover-txt-color: #252a34;
+  --distance: 4px;
+  --border-color: #08d9d6;
+  --text-color: #08d9d6;
+  --animation-duration: 2s;
+  --animation-ease: ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.logout{
+  margin-left: 1200px;
+  margin-top: -70px;
+}
+
+
+.animated-btn {
+  position: relative;
+  border: 0;
+  background-color: transparent;
+  padding: 8px 24px;
+  text-transform: uppercase;
+  font-family: inherit;
+  letter-spacing: 2px;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  color: var(--text-color);
+  overflow: hidden;
+  margin: 16px 4px;
+  cursor: pointer;
+}
+.animated-btn:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--hover-txt-color);
+}
+.animated-btn::before, .animated-btn::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  border: 2px solid var(--border-color);
+}
+.animated-btn::after {
+  -webkit-animation: animateAfter var(--animation-duration) var(--animation-ease) infinite;
+          animation: animateAfter var(--animation-duration) var(--animation-ease) infinite;
+}
+.animated-btn::before {
+  -webkit-animation: animateBefore var(--animation-duration) var(--animation-ease) infinite;
+          animation: animateBefore var(--animation-duration) var(--animation-ease) infinite;
+}
+.animated-btn.reverse::before, .animated-btn.reverse::after {
+  animation-direction: reverse;
+}
+
+@-webkit-keyframes animateAfter {
+  0% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translateX(calc(-100% + var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translateX(calc(-100% + var(--distance)));
+  }
+  25% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+  50% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+  75% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(-100% + var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(-100% + var(--distance)));
+  }
+  100% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translatex(calc(-100% + var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translatex(calc(-100% + var(--distance)));
+  }
+}
+
+@keyframes animateAfter {
+  0% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translateX(calc(-100% + var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translateX(calc(-100% + var(--distance)));
+  }
+  25% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+  50% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+  75% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(-100% + var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(-100% + var(--distance)));
+  }
+  100% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translatex(calc(-100% + var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translatex(calc(-100% + var(--distance)));
+  }
+}
+@-webkit-keyframes animateBefore {
+  0% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+  25% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(-100% + var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(-100% + var(--distance)));
+  }
+  35% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translatex(calc(-100% + var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translatex(calc(-100% + var(--distance)));
+  }
+  75% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+  100% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+}
+@keyframes animateBefore {
+  0% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+  25% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(-100% + var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(-100% + var(--distance)));
+  }
+  35% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translatex(calc(-100% + var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translatex(calc(-100% + var(--distance)));
+  }
+  75% {
+    -webkit-transform: translatey(calc(-100% + var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(-100% + var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+  100% {
+    -webkit-transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+            transform: translatey(calc(100% - var(--distance))) translatex(calc(100% - var(--distance)));
+  }
+}
+
+</style>
+<style type="text/css">
+  
+  
+
+
+
+.push_button {
+
+  position: absolute;
+  width:90px;
+  height:40px;
+  text-align:center;
+  color:#FFF;
+  text-decoration:none;
+  line-height:43px;
+  font-family: Montserrat, sans-serif;
+  display:inline-block;
+  margin-top: -260px;
+  margin-left:590px;
+}
+.push_button:before {
+  background:#f0f0f0;
+  background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D0D0D0), to(#f0f0f0));
+  
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  
+  -webkit-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+  -moz-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+  box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+  
+  position: absolute;
+  content: "";
+  left: -6px; right: -6px;
+  top: -6px; bottom: -10px;
+  z-index: -1;
+}
+
+.push_button:active {
+  -webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
+  top:5px;
+}
+.push_button:active:before{
+  top: -11px;
+  bottom: -5px;
+  content: "";
+}
+
+.red {
+  text-shadow:-1px -1px 0 #A84155;
+  background: #D25068;
+  border:1px solid #D25068;
+  
+  background-image:-webkit-linear-gradient(top, #F66C7B, #D25068);
+  background-image:-moz-linear-gradient(top, #F66C7B, #D25068);
+  background-image:-ms-linear-gradient(top, #F66C7B, #D25068);
+  background-image:-o-linear-gradient(top, #F66C7B, #D25068);
+  background-image:linear-gradient(to bottom, #F66C7B, #D25068);
+  
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  
+  -webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+  -moz-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+  box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+}
+
+.red:hover {
+  background: #F66C7B;
+  background-image:-webkit-linear-gradient(top, #D25068, #F66C7B);
+  background-image:-moz-linear-gradient(top, #D25068, #F66C7B);
+  background-image:-ms-linear-gradient(top, #D25068, #F66C7B);
+  background-image:-o-linear-gradient(top, #D25068, #F66C7B);
+  background-image:linear-gradient(top, #D25068, #F66C7B);
+}
+
+
+</style>
+
+
+
+</html>

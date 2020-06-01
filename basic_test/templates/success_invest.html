@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Success</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sourcesanspro-font.css') }}">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body class="form-v8">
+	<div class="page-content">
+		<div class="form-v8-content">
+			<div class="form-left">
+				<img src="{{url_for('static', filename='mail_alert.gif')}}" alt="form" width=420px height=420px>
+			</div>
+			<div class="form-right">
+				<div class="tab">
+					<div class="tab-inner">
+						<h1 class="tablinks" style="margin:20px; color:#ffffff">Successfully purchased cryptos </h1>
+					</div>
+				</div>
+				<h4 class="tablinks" style="margin: 30px; color:#ffffff"><b> Purchase of cryptos is successful</b> </h4> 
+				<h5 class="tablinks" style="margin-top: 10px;margin-left:10px; color:#ffffff"> <b>Transaction summary :</b></h5><br>
+				<div style="margin-top:10px;margin-left:20px;margin-right:20px;">
+				<table style="border: 1px white solid" border=1 class="table table-hover">
+				<tr>
+				<th> Amount (INR) </th>
+				<th> Crypto (s) </th>
+				<th> Current balance </th>
+				</tr>
+				<tr> 
+				<td> {{data.rupee}}</td>
+				<td> {{data.crypto}}</td>
+				<td> {{data.balance}}</td>
+				
+				</table>
+				
+				</div>
+				
+				<h6 class="tablinks" style="margin: 35px; color:#ffffff"> Note: Never share your private key with anybody </h6>
+				<form class="form-detail" action="/welcome" method="post">
+				<div class="form-row-last">
+						<input type="submit" name="register" class="register" style="width:280px;" value="Click here to continue -->">
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function openCity(evt, cityName) {
+		    var i, tabcontent, tablinks;
+		    tabcontent = document.getElementsByClassName("tabcontent");
+		    for (i = 0; i < tabcontent.length; i++) {
+		        tabcontent[i].style.display = "none";
+		    }
+		    tablinks = document.getElementsByClassName("tablinks");
+		    for (i = 0; i < tablinks.length; i++) {
+		        tablinks[i].className = tablinks[i].className.replace(" active", "");
+		    }
+		    document.getElementById(cityName).style.display = "block";
+		    evt.currentTarget.className += " active";
+		}
+		
+		function homeRedirect() {
+			  location.replace("http://127.0.0.1:5000/")
+			}
+
+		// Get the element with id="defaultOpen" and click on it
+		document.getElementById("defaultOpen").click();
+	</script>
+</body>
+</html>

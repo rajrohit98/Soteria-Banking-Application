@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Success</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sourcesanspro-font.css') }}">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body class="form-v8">
+	<div class="page-content">
+		<div class="form-v8-content">
+			<div class="form-left">
+				<img src="{{url_for('static', filename='success-icon.gif')}}" alt="form" width=420px height=420px>
+			</div>
+			<div class="form-right">
+				<div class="tab">
+					<div class="tab-inner">
+						<h1 class="tablinks" style="margin:20px; color:#ffffff">Transaction is successful !!</h1>
+					</div>
+				</div>
+				<table style="border: 1px white solid" border=1 class="table table-hover">
+				<tr>
+				<th class="tablinks" style="margin: 30px; color:#ffffff"> Sender (account number) </th>
+				<th class="tablinks" style="margin: 30px; color:#ffffff"> Receiver (account number)</th>
+				<th class="tablinks" style="margin: 30px; color:#ffffff"> Amount </th>
+				<th class="tablinks" style="margin: 30px; color:#ffffff"> Remaining Balance </th>
+				</tr>
+				{% for items in data %}
+				<tr>
+				<td class="tablinks" style="margin: 10px; color:#ffffff"> {{items.sender}}</td>
+				<td class="tablinks" style="margin: 10px; color:#ffffff"> {{items.receiver}}</td>
+				<td class="tablinks" style="margin: 10px; color:#ffffff">{{items.amount}}</td>
+				<td class="tablinks" style="margin: 10px; color:#ffffff"> {{items.balance}}</td>
+				</tr>
+				{% endfor %}
+				
+				</table>
+				<h3 class="tablinks" style="margin: 30px; color:#ffffff"> </h3>
+				<h4 class="tablinks" style="margin: 35px; color:#ffffff"> Note: Never share your private key with anybody </h4>
+				<form class="form-detail" action="/welcome" method="post">
+				<div class="form-row-last">
+						<input type="submit" name="register" class="register" style="width:280px;" value="Click here to continue -->">
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function openCity(evt, cityName) {
+		    var i, tabcontent, tablinks;
+		    tabcontent = document.getElementsByClassName("tabcontent");
+		    for (i = 0; i < tabcontent.length; i++) {
+		        tabcontent[i].style.display = "none";
+		    }
+		    tablinks = document.getElementsByClassName("tablinks");
+		    for (i = 0; i < tablinks.length; i++) {
+		        tablinks[i].className = tablinks[i].className.replace(" active", "");
+		    }
+		    document.getElementById(cityName).style.display = "block";
+		    evt.currentTarget.className += " active";
+		}
+		
+		function homeRedirect() {
+			  location.replace("http://127.0.0.1:5000/welcome")
+			}
+
+		// Get the element with id="defaultOpen" and click on it
+		document.getElementById("defaultOpen").click();
+	</script>
+</body>
+</html>
